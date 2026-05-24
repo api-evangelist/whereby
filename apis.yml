@@ -117,6 +117,8 @@ common:
       - https://whereby.com/information/embedded/
       - https://docs.whereby.com/reference/whereby-rest-api-reference
     updated: '2026-05-23'
+  - type: LLMsTxt
+    url: https://docs.whereby.com/llms.txt
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
