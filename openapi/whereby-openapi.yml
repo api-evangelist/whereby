@@ -1,0 +1,378 @@
+openapi: 3.1.0
+info:
+  title: Whereby REST API
+  description: |
+    Whereby REST API for managing meetings, rooms, recordings, transcriptions,
+    summaries and insights. Authenticated with a Bearer token issued from the
+    Whereby Embedded dashboard.
+  version: "1.0"
+  contact:
+    name: Whereby
+    url: https://docs.whereby.com
+servers:
+  - url: https://api.whereby.dev/v1
+    description: Production
+security:
+  - BearerAuth: []
+paths:
+  /meetings:
+    get:
+      summary: List meetings
+      operationId: listMeetings
+      responses:
+        "200":
+          description: Meeting list
+          content:
+            application/json: {}
+    post:
+      summary: Create a meeting
+      description: Creates a transient room that is available between creation and an hour after the given endDate.
+      operationId: createMeeting
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                endDate:
+                  type: string
+                  format: date-time
+                roomNamePrefix:
+                  type: string
+                roomNamePattern:
+                  type: string
+                  enum: [uuid, human-short]
+                roomMode:
+                  type: string
+                  enum: [normal, group]
+                isLocked:
+                  type: boolean
+                fields:
+                  type: array
+                  items: { type: string }
+              required: [endDate]
+      responses:
+        "201":
+          description: Meeting created
+          content:
+            application/json: {}
+  /meetings/{meetingId}:
+    parameters:
+      - name: meetingId
+        in: path
+        required: true
+        schema: { type: string }
+    get:
+      summary: Retrieve a meeting
+      operationId: getMeeting
+      responses:
+        "200":
+          description: Meeting
+          content:
+            application/json: {}
+    delete:
+      summary: Delete a meeting
+      operationId: deleteMeeting
+      responses:
+        "204":
+          description: Deleted
+  /rooms/{roomName}/theme/logo:
+    put:
+      summary: Upload a logo for a room theme
+      operationId: putRoomThemeLogo
+      parameters:
+        - name: roomName
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Theme logo updated
+  /rooms/{roomName}/theme/tokens:
+    put:
+      summary: Update theme tokens for a room
+      operationId: putRoomThemeTokens
+      parameters:
+        - name: roomName
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Theme tokens updated
+  /rooms/{roomName}/theme/room-background:
+    put:
+      summary: Update room background image
+      operationId: putRoomBackground
+      parameters:
+        - name: roomName
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Updated
+  /rooms/{roomName}/theme/room-knock-page-background:
+    put:
+      summary: Update room knock page background image
+      operationId: putRoomKnockBackground
+      parameters:
+        - name: roomName
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Updated
+  /recordings:
+    get:
+      summary: List recordings
+      operationId: listRecordings
+      responses:
+        "200":
+          description: Recording list
+          content:
+            application/json: {}
+  /recordings/{recordingId}:
+    parameters:
+      - name: recordingId
+        in: path
+        required: true
+        schema: { type: string }
+    get:
+      summary: Retrieve a recording
+      operationId: getRecording
+      responses:
+        "200":
+          description: Recording
+          content:
+            application/json: {}
+    delete:
+      summary: Delete a recording
+      operationId: deleteRecording
+      responses:
+        "204":
+          description: Deleted
+  /recordings/{recordingId}/access-link:
+    get:
+      summary: Get an access link for a recording
+      operationId: getRecordingAccessLink
+      parameters:
+        - name: recordingId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Access link
+          content:
+            application/json: {}
+  /recordings/bulk-delete:
+    post:
+      summary: Bulk delete recordings
+      operationId: bulkDeleteRecordings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                recordingIds:
+                  type: array
+                  items: { type: string }
+      responses:
+        "200":
+          description: Bulk delete result
+          content:
+            application/json: {}
+  /transcriptions:
+    get:
+      summary: List transcriptions
+      operationId: listTranscriptions
+      responses:
+        "200":
+          description: Transcription list
+          content:
+            application/json: {}
+    post:
+      summary: Create a transcription
+      operationId: createTranscription
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "201":
+          description: Transcription created
+  /transcriptions/{transcriptionId}:
+    parameters:
+      - name: transcriptionId
+        in: path
+        required: true
+        schema: { type: string }
+    get:
+      summary: Retrieve a transcription
+      operationId: getTranscription
+      responses:
+        "200":
+          description: Transcription
+          content:
+            application/json: {}
+    delete:
+      summary: Delete a transcription
+      operationId: deleteTranscription
+      responses:
+        "204":
+          description: Deleted
+  /transcriptions/{transcriptionId}/access-link:
+    get:
+      summary: Get an access link for a transcription
+      operationId: getTranscriptionAccessLink
+      parameters:
+        - name: transcriptionId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Access link
+          content:
+            application/json: {}
+  /transcriptions/bulk-delete:
+    post:
+      summary: Bulk delete transcriptions
+      operationId: bulkDeleteTranscriptions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                transcriptionIds:
+                  type: array
+                  items: { type: string }
+      responses:
+        "200":
+          description: Bulk delete result
+  /summaries:
+    get:
+      summary: List meeting summaries
+      operationId: listSummaries
+      responses:
+        "200":
+          description: Summary list
+          content:
+            application/json: {}
+    post:
+      summary: Create a meeting summary
+      operationId: createSummary
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "201":
+          description: Created
+  /summaries/{summaryId}:
+    parameters:
+      - name: summaryId
+        in: path
+        required: true
+        schema: { type: string }
+    get:
+      summary: Retrieve a summary
+      operationId: getSummary
+      responses:
+        "200":
+          description: Summary
+    delete:
+      summary: Delete a summary
+      operationId: deleteSummary
+      responses:
+        "204":
+          description: Deleted
+  /insights/rooms:
+    get:
+      summary: Insights for rooms
+      operationId: insightsRooms
+      responses:
+        "200":
+          description: Insights data
+          content:
+            application/json: {}
+  /insights/room-sessions:
+    get:
+      summary: Insights for room sessions
+      operationId: insightsRoomSessions
+      responses:
+        "200":
+          description: Insights data
+          content:
+            application/json: {}
+  /insights/participants:
+    get:
+      summary: Insights for participants
+      operationId: insightsParticipants
+      responses:
+        "200":
+          description: Insights data
+          content:
+            application/json: {}
+  /insights/participant:
+    get:
+      summary: Insights for a specific participant
+      operationId: insightsParticipant
+      responses:
+        "200":
+          description: Insights data
+          content:
+            application/json: {}
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
