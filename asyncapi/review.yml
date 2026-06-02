@@ -1,0 +1,99 @@
+aid: whereby:asyncapi-review
+name: Whereby AsyncAPI Review
+kind: review
+date: '2026-05-29'
+reviewer: API Evangelist
+subject: Whereby public WebSocket / event-driven API surface
+verdict: no-public-websocket-api
+summary: >-
+  Whereby does not expose a documented, public WebSocket endpoint that
+  developers can connect to directly. Its event-driven surface is delivered
+  exclusively through (1) HTTP webhooks (server-to-server POST callbacks signed
+  with the Whereby-Signature header) and (2) SDK-side event handlers (Web
+  Component, Browser SDK / React, Core SDK, Assistant SDK, Android SDK, iOS
+  SDK, React Native, Flutter) that abstract an internal signaling and WebRTC
+  transport developers are not expected to address directly. Because there is
+  no documented wss:// endpoint, no documented WebSocket message schema, and no
+  documented WebSocket auth / subprotocol contract, an AsyncAPI 2.6 spec that
+  faithfully describes a Whereby-hosted channel cannot be produced without
+  fabrication. An AsyncAPI 2.6 spec was therefore NOT generated.
+findings:
+  - id: webhooks-only
+    label: Realtime delivery is HTTP webhooks
+    detail: >-
+      Whereby delivers room and session lifecycle events as HTTP POST callbacks
+      to a developer-provided URL, not over a WebSocket channel. Deliveries
+      carry a Whereby-Signature header of the form
+      "t=<timestamp>,v1=<signature>" where the signature is an HMAC-SHA256 of
+      "<timestamp>.<raw JSON body>" computed with the endpoint's signing
+      secret. This is a request/response webhook contract, better described by
+      an OpenAPI callback or AsyncAPI HTTP binding, not a WebSocket binding.
+    documented_events:
+      - room.client.joined
+      - room.client.left
+      - room.client.knocked
+      - room.client.knockCancelled
+      - room.session.started
+      - room.session.ended
+      - transcription.started
+      - transcription.finished
+      - transcription.failed
+      - recording.finished
+      - assistant.requested
+  - id: sdk-event-handlers
+    label: Client realtime events are SDK-only
+    detail: >-
+      The Whereby Web Component, Browser SDK (React), Core SDK, Assistant SDK,
+      and native Android / iOS / React Native / Flutter SDKs surface room
+      lifecycle and participant events through SDK callbacks and React hooks
+      (for example RoomConnectionClient state in the Core SDK). The SDKs
+      negotiate the underlying session with Whereby's signaling and media
+      infrastructure on the developer's behalf. The transport is not specified
+      as a public WebSocket interface and is not documented with a connectable
+      URL or message schema.
+  - id: webrtc-transport
+    label: Media/signaling transport is WebRTC, not a public WS API
+    detail: >-
+      Whereby Embedded is built on WebRTC over Whereby's global mesh network.
+      Customers are expected to integrate via the Web Component, Browser SDK,
+      Core SDK, or native mobile SDKs, or to embed a meeting URL via iframe.
+      No wss:// endpoint is published for external clients to drive signaling
+      directly.
+  - id: rtmp-not-ws
+    label: Live streaming is RTMP, not WebSocket
+    detail: >-
+      The "Live Streaming" feature lets a room broadcast to an external RTMP
+      destination. RTMP is not a WebSocket-based transport and is not a public
+      Whereby-hosted WS endpoint that customers connect to.
+pages_checked:
+  - url: https://docs.whereby.com/
+    result: Landing page describes Web Component, Browser SDK (React), Core SDK,
+      Android SDK, iOS SDK. No public WebSocket endpoint mentioned.
+  - url: https://docs.whereby.com/sitemap.md
+    result: Full sitemap covers Getting Started, Browser, Mobile, Integrations,
+      Product Features, Telehealth, API References (REST, Core SDK, Assistant
+      SDK, React SDK, React Native, Camera Effects), and Resources. No
+      WebSocket, AsyncAPI, or wss:// references.
+  - url: https://docs.whereby.com/llms.txt
+    result: No mention of public WebSocket, wss://, AsyncAPI, or socket.io.
+      Distinguishes webhooks (user-defined callbacks) from SDK-internal
+      signaling that is abstracted away from direct WebSocket access.
+  - url: https://docs.whereby.com/llms-full.txt
+    result: Full documentation export. Zero matches for "websocket", "wss://",
+      "asyncapi", or "socket.io" as customer-facing endpoint contracts.
+  - url: https://docs.whereby.com/whereby-product-features/insights-suite-and-api/webhooks
+    result: Confirms event delivery is HTTP POST webhooks with Whereby-Signature
+      HMAC-SHA256 verification. 11 documented event types across room client,
+      session, transcription, recording, and assistant categories.
+  - url: https://docs.whereby.com/reference/whereby-rest-api-reference
+    result: REST API at https://api.whereby.dev/v1 for meetings, rooms,
+      recordings, transcriptions, summaries, and insights. No WebSocket
+      endpoints.
+recommendation: >-
+  Document Whereby's event-driven surface as an OpenAPI callbacks spec
+  (webhook receiver contract) rather than AsyncAPI. If Whereby later publishes
+  a public wss:// endpoint (for example for live transcription streaming, chat,
+  or signaling), revisit and produce an AsyncAPI 2.6 spec at that time.
+artifacts_produced:
+  spec: null
+  review: asyncapi/review.yml
