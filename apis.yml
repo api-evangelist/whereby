@@ -1,15 +1,19 @@
 aid: whereby
 name: Whereby
-description: Whereby is an embeddable video API plus standalone meetings product that lets developers add browser-based, no-download video calls to their apps with a few lines of code or build deeply customized experiences via SDKs. The REST API at api.whereby.dev/v1 covers meetings, rooms, recordings, transcriptions, summaries, and insights.
+description: Whereby is an embeddable video API plus standalone meetings product that
+  lets developers add browser-based, no-download video calls to their apps with a
+  few lines of code or build deeply customized experiences via SDKs. The REST API
+  at api.whereby.dev/v1 covers meetings, rooms, recordings, transcriptions, summaries,
+  and insights.
 image: https://whereby.com/static/whereby-logo.svg
 tags:
-  - Video
-  - Communications
-  - Real-Time
-  - WebRTC
-  - Embedded
-  - Meetings
-  - Collaboration
+- Video
+- Communications
+- Real-Time
+- WebRTC
+- Embedded
+- Meetings
+- Collaboration
 created: '2026-05-23'
 modified: '2026-05-23'
 specificationVersion: '0.18'
@@ -17,112 +21,119 @@ position: Consuming
 kind: contract
 access: 3rd-Party
 apis:
-  - aid: whereby:whereby-rest-api
-    name: Whereby REST API
-    description: Bearer-authenticated REST API for creating meeting rooms, managing live sessions, retrieving recordings, transcriptions, summaries, and pulling usage insights. Base URL https://api.whereby.dev/v1.
-    tags:
-      - Meetings
-      - Rooms
-      - Recordings
-      - Transcriptions
-      - Summaries
-      - Insights
-    properties:
-      - url: https://docs.whereby.com/
-        type: Documentation
-      - url: https://docs.whereby.com/reference/whereby-rest-api-reference
-        type: APIReference
-      - url: https://docs.whereby.com/reference/meetings
-        type: APIReference
-      - url: https://docs.whereby.com/reference/rooms
-        type: APIReference
-      - url: https://docs.whereby.com/reference/recordings
-        type: APIReference
-      - url: https://docs.whereby.com/reference/transcriptions
-        type: APIReference
-      - url: https://docs.whereby.com/reference/summaries
-        type: APIReference
-      - url: https://docs.whereby.com/reference/insights
-        type: APIReference
-  - aid: whereby:whereby-webhooks
-    name: Whereby Webhooks
-    description: Outbound webhook notifications for room and session lifecycle events including client join/leave, knock, session start/end, recording finished, transcription started/finished/failed, and assistant requested. Signed with the Whereby-Signature header.
-    tags:
-      - Webhooks
-      - Events
-      - Async
-    properties:
-      - url: https://docs.whereby.com/reference/webhooks
-        type: Documentation
-common:
-  - url: https://whereby.com
-    type: Website
-  - url: https://whereby.com/information/embedded/
-    type: Product
+- aid: whereby:whereby-rest-api
+  name: Whereby REST API
+  description: Bearer-authenticated REST API for creating meeting rooms, managing
+    live sessions, retrieving recordings, transcriptions, summaries, and pulling usage
+    insights. Base URL https://api.whereby.dev/v1.
+  tags:
+  - Meetings
+  - Rooms
+  - Recordings
+  - Transcriptions
+  - Summaries
+  - Insights
+  properties:
   - url: https://docs.whereby.com/
     type: Documentation
   - url: https://docs.whereby.com/reference/whereby-rest-api-reference
     type: APIReference
-  - url: https://docs.whereby.com/reference/getting-started
-    type: GettingStarted
-  - url: https://docs.whereby.com/reference/authentication
-    type: Authentication
-  - url: https://whereby.com/information/embedded/pricing
-    type: Pricing
-  - url: https://whereby.com/org/signup/embedded?signupFlowPlanType=embedded_free
-    type: SignUp
-  - url: https://whereby.com/information/select-product
-    type: Product
-  - url: https://whereby.frontkb.com/en
-    type: Support
-  - url: https://wherebystatus.com/
-    type: StatusPage
-  - url: https://whereby.com/blog/
-    type: Blog
-  - url: https://whereby.com/information/tos
-    type: TermsOfService
-  - url: https://whereby.com/information/tos/privacy-policy/
-    type: PrivacyPolicy
-  - url: https://careers.whereby.com/
-    type: Careers
-  - url: https://github.com/whereby
-    type: GitHubOrganization
-  - url: https://www.linkedin.com/company/whereby
-    type: LinkedIn
-  - url: https://docs.whereby.com/reference/sdks
-    type: SDKs
-  - url: https://docs.whereby.com/reference/web-component
-    type: WebComponent
-  - url: https://docs.whereby.com/reference/browser-sdk
-    type: BrowserSDK
-  - url: https://docs.whereby.com/reference/android-sdk
-    type: AndroidSDK
-  - url: https://docs.whereby.com/reference/ios-sdk
-    type: iOSSDK
-  - type: Features
-    data:
-      - Embeddable video calls via iframe, Web Component, or React Browser SDK
-      - Native Android and iOS SDKs
-      - REST API for programmatic meeting and room creation
-      - Cloud recording with retrieval via API
-      - AI-generated transcriptions and meeting summaries
-      - Breakout groups, in-call chat, and file sharing
-      - Pre-call device and connectivity checks
-      - Webhooks for room, session, recording, transcription, and assistant events
-      - Whereby-Signature HMAC verification on webhook deliveries
-      - Point-based rate limiting (100/min Build, 1000/min Enterprise)
-      - GDPR and ISO 27001 compliance, optional HIPAA configuration
-      - Global mesh network for low-latency media
-    sources:
-      - https://whereby.com/information/embedded/
-      - https://docs.whereby.com/reference/whereby-rest-api-reference
-    updated: '2026-05-23'
-  - type: LLMsTxt
-    url: https://docs.whereby.com/llms.txt
+  - url: https://docs.whereby.com/reference/meetings
+    type: APIReference
+  - url: https://docs.whereby.com/reference/rooms
+    type: APIReference
+  - url: https://docs.whereby.com/reference/recordings
+    type: APIReference
+  - url: https://docs.whereby.com/reference/transcriptions
+    type: APIReference
+  - url: https://docs.whereby.com/reference/summaries
+    type: APIReference
+  - url: https://docs.whereby.com/reference/insights
+    type: APIReference
+  - url: graphql/whereby-graphql.md
+    type: GraphQL
+- aid: whereby:whereby-webhooks
+  name: Whereby Webhooks
+  description: Outbound webhook notifications for room and session lifecycle events
+    including client join/leave, knock, session start/end, recording finished, transcription
+    started/finished/failed, and assistant requested. Signed with the Whereby-Signature
+    header.
+  tags:
+  - Webhooks
+  - Events
+  - Async
+  properties:
+  - url: https://docs.whereby.com/reference/webhooks
+    type: Documentation
+common:
+- url: https://whereby.com
+  type: Website
+- url: https://whereby.com/information/embedded/
+  type: Product
+- url: https://docs.whereby.com/
+  type: Documentation
+- url: https://docs.whereby.com/reference/whereby-rest-api-reference
+  type: APIReference
+- url: https://docs.whereby.com/reference/getting-started
+  type: GettingStarted
+- url: https://docs.whereby.com/reference/authentication
+  type: Authentication
+- url: https://whereby.com/information/embedded/pricing
+  type: Pricing
+- url: https://whereby.com/org/signup/embedded?signupFlowPlanType=embedded_free
+  type: SignUp
+- url: https://whereby.com/information/select-product
+  type: Product
+- url: https://whereby.frontkb.com/en
+  type: Support
+- url: https://wherebystatus.com/
+  type: StatusPage
+- url: https://whereby.com/blog/
+  type: Blog
+- url: https://whereby.com/information/tos
+  type: TermsOfService
+- url: https://whereby.com/information/tos/privacy-policy/
+  type: PrivacyPolicy
+- url: https://careers.whereby.com/
+  type: Careers
+- url: https://github.com/whereby
+  type: GitHubOrganization
+- url: https://www.linkedin.com/company/whereby
+  type: LinkedIn
+- url: https://docs.whereby.com/reference/sdks
+  type: SDKs
+- url: https://docs.whereby.com/reference/web-component
+  type: WebComponent
+- url: https://docs.whereby.com/reference/browser-sdk
+  type: BrowserSDK
+- url: https://docs.whereby.com/reference/android-sdk
+  type: AndroidSDK
+- url: https://docs.whereby.com/reference/ios-sdk
+  type: iOSSDK
+- type: Features
+  data:
+  - Embeddable video calls via iframe, Web Component, or React Browser SDK
+  - Native Android and iOS SDKs
+  - REST API for programmatic meeting and room creation
+  - Cloud recording with retrieval via API
+  - AI-generated transcriptions and meeting summaries
+  - Breakout groups, in-call chat, and file sharing
+  - Pre-call device and connectivity checks
+  - Webhooks for room, session, recording, transcription, and assistant events
+  - Whereby-Signature HMAC verification on webhook deliveries
+  - Point-based rate limiting (100/min Build, 1000/min Enterprise)
+  - GDPR and ISO 27001 compliance, optional HIPAA configuration
+  - Global mesh network for low-latency media
+  sources:
+  - https://whereby.com/information/embedded/
+  - https://docs.whereby.com/reference/whereby-rest-api-reference
+  updated: '2026-05-23'
+- type: LLMsTxt
+  url: https://docs.whereby.com/llms.txt
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
-  - FN: APIs.json
-    email: info@apis.io
-  - name: Whereby
-    url: https://whereby.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
+- FN: APIs.json
+  email: info@apis.io
+- name: Whereby
+  url: https://whereby.com

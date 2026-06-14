@@ -1,0 +1,815 @@
+# Whereby GraphQL Schema
+# Conceptual schema derived from the Whereby REST API
+# REST Reference: https://docs.whereby.com/reference/whereby-rest-api-reference
+
+# ─────────────────────────────────────────────
+# Scalars
+# ─────────────────────────────────────────────
+
+scalar DateTime
+scalar URL
+scalar HexColor
+
+# ─────────────────────────────────────────────
+# Enums
+# ─────────────────────────────────────────────
+
+enum MeetingType {
+  NORMAL
+  BREAKOUT
+  BROADCAST
+}
+
+enum RoomPrivacy {
+  PUBLIC
+  PRIVATE
+  KNOCKING
+}
+
+enum LockStatus {
+  LOCKED
+  UNLOCKED
+}
+
+enum RecordingStatus {
+  NONE
+  STARTING
+  RECORDING
+  STOPPING
+  FINISHED
+  FAILED
+}
+
+enum RecordingMode {
+  LOCAL
+  CLOUD
+}
+
+enum ParticipantRole {
+  HOST
+  VIEWER
+  PARTICIPANT
+}
+
+enum KnockStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum PresentationMode {
+  NONE
+  SCREENSHARE
+  WHITEBOARD
+}
+
+enum LayoutType {
+  GRID
+  SPOTLIGHT
+  SIDEBAR
+  PRESENTATION
+}
+
+enum WebhookEvent {
+  ROOM_KNOCKED
+  ROOM_SESSION_STARTED
+  ROOM_SESSION_ENDED
+  ROOM_CLIENT_JOINED
+  ROOM_CLIENT_LEFT
+  RECORDING_FINISHED
+  RECORDING_FAILED
+  TRANSCRIPTION_STARTED
+  TRANSCRIPTION_FINISHED
+  TRANSCRIPTION_FAILED
+  SUMMARY_CREATED
+  ASSISTANT_REQUESTED
+}
+
+enum TranscriptionStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+}
+
+enum StreamStatus {
+  IDLE
+  STARTING
+  LIVE
+  STOPPING
+  STOPPED
+  ERROR
+}
+
+# ─────────────────────────────────────────────
+# Core Meeting Types
+# ─────────────────────────────────────────────
+
+type Meeting {
+  meetingId: ID!
+  roomUrl: RoomURL!
+  hostRoomUrl: HostURL
+  startDate: StartDate
+  endDate: EndDate
+  type: MeetingType!
+  fields: [String!]
+  roomConfig: RoomConfig
+  recording: CloudRecording
+  transcription: Transcription
+  participants: [Participant!]
+  details: MeetingDetails
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
+type MeetingDetails {
+  meetingId: ID!
+  roomName: String!
+  sessionId: String
+  startedAt: DateTime
+  endedAt: DateTime
+  durationSeconds: Int
+  participantCount: Int
+  recordingStatus: RecordingStatus
+  transcriptionStatus: TranscriptionStatus
+  type: MeetingType!
+  chat: Chat
+  presenter: Presenter
+  layout: Layout
+}
+
+type MeetingConnection {
+  edges: [MeetingEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type MeetingEdge {
+  node: Meeting!
+  cursor: String!
+}
+
+# Strongly-typed URL wrappers
+
+type MeetingURL {
+  url: URL!
+  expiresAt: DateTime
+}
+
+type RoomURL {
+  url: URL!
+  roomName: String!
+}
+
+type HostURL {
+  url: URL!
+  token: String!
+  expiresAt: DateTime
+}
+
+# Date wrappers
+
+type StartDate {
+  isoString: DateTime!
+  timestamp: Int!
+}
+
+type EndDate {
+  isoString: DateTime!
+  timestamp: Int!
+}
+
+# ─────────────────────────────────────────────
+# Room Types
+# ─────────────────────────────────────────────
+
+type Room {
+  roomId: ID!
+  roomName: String!
+  roomUrl: RoomURL!
+  privacy: RoomPrivacy!
+  lockStatus: LockStatus!
+  config: RoomConfig!
+  branding: Branding
+  waitingRoom: WaitingRoom
+  permissions: PermissionsConfig
+  activeMeeting: Meeting
+  createdAt: DateTime!
+  updatedAt: DateTime
+  organization: Organization
+}
+
+type RoomConnection {
+  edges: [RoomEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type RoomEdge {
+  node: Room!
+  cursor: String!
+}
+
+type RoomConfig {
+  privacy: RoomPrivacy!
+  lockStatus: LockStatus!
+  waitingRoomEnabled: Boolean!
+  cloudRecordingEnabled: Boolean!
+  transcriptionEnabled: Boolean!
+  chatEnabled: Boolean!
+  screenShareEnabled: Boolean!
+  breakoutGroupsEnabled: Boolean!
+  maxParticipants: Int
+  templateType: String
+}
+
+# ─────────────────────────────────────────────
+# Token and Auth Types
+# ─────────────────────────────────────────────
+
+type MeetingToken {
+  token: String!
+  meetingId: ID!
+  roomUrl: URL!
+  expiresAt: DateTime
+  role: ParticipantRole!
+  displayName: String
+  userId: String
+  metadata: String
+}
+
+type MeetingTokens {
+  hostToken: MeetingToken!
+  participantTokens: [MeetingToken!]!
+}
+
+type APIKey {
+  keyId: ID!
+  name: String!
+  prefix: String!
+  organizationId: ID!
+  createdAt: DateTime!
+  lastUsedAt: DateTime
+  scopes: [String!]!
+  active: Boolean!
+}
+
+type Token {
+  value: String!
+  tokenType: String!
+  expiresAt: DateTime
+  scope: String
+  issuedAt: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# Participant Types
+# ─────────────────────────────────────────────
+
+type Participant {
+  participantId: ID!
+  displayName: String
+  userId: String
+  role: ParticipantRole!
+  joinedAt: DateTime!
+  leftAt: DateTime
+  media: ParticipantMedia
+  details: ParticipantDetails
+  metadata: String
+}
+
+type ParticipantDetails {
+  participantId: ID!
+  displayName: String
+  userId: String
+  role: ParticipantRole!
+  joinedAt: DateTime!
+  leftAt: DateTime
+  deviceType: String
+  browser: String
+  operatingSystem: String
+  connectionQuality: String
+  durationSeconds: Int
+  media: ParticipantMedia
+}
+
+type ParticipantMedia {
+  video: VideoTrack
+  audio: AudioTrack
+  screenShare: ScreenShare
+  cameraEnabled: Boolean!
+  microphoneEnabled: Boolean!
+  screenShareEnabled: Boolean!
+}
+
+type VideoTrack {
+  trackId: ID!
+  enabled: Boolean!
+  width: Int
+  height: Int
+  frameRate: Int
+  codec: String
+  bitrate: Int
+}
+
+type AudioTrack {
+  trackId: ID!
+  enabled: Boolean!
+  codec: String
+  sampleRate: Int
+  channels: Int
+  bitrate: Int
+}
+
+type ScreenShare {
+  shareId: ID!
+  participantId: ID!
+  startedAt: DateTime!
+  stoppedAt: DateTime
+  active: Boolean!
+  width: Int
+  height: Int
+}
+
+# ─────────────────────────────────────────────
+# Recording Types
+# ─────────────────────────────────────────────
+
+type LocalRecording {
+  recordingId: ID!
+  meetingId: ID!
+  participantId: ID!
+  status: RecordingStatus!
+  startedAt: DateTime
+  stoppedAt: DateTime
+  fileName: String
+  fileSizeBytes: Int
+  mimeType: String
+}
+
+type CloudRecording {
+  recordingId: ID!
+  meetingId: ID!
+  roomName: String!
+  status: RecordingStatus!
+  startedAt: DateTime
+  finishedAt: DateTime
+  durationSeconds: Int
+  fileSizeBytes: Int
+  downloadUrl: URL
+  downloadUrlExpiresAt: DateTime
+  thumbnailUrl: URL
+  mimeType: String
+  resolution: String
+  deletedAt: DateTime
+}
+
+type RecordingConnection {
+  edges: [RecordingEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type RecordingEdge {
+  node: CloudRecording!
+  cursor: String!
+}
+
+# ─────────────────────────────────────────────
+# Transcription Types
+# ─────────────────────────────────────────────
+
+type Transcription {
+  transcriptionId: ID!
+  meetingId: ID!
+  roomName: String!
+  status: TranscriptionStatus!
+  language: String
+  startedAt: DateTime
+  finishedAt: DateTime
+  details: TranscriptionDetail
+  segments: [TranscriptSegment!]
+  wordCount: Int
+  deletedAt: DateTime
+}
+
+type TranscriptionDetail {
+  transcriptionId: ID!
+  meetingId: ID!
+  status: TranscriptionStatus!
+  language: String!
+  model: String
+  wordCount: Int
+  characterCount: Int
+  durationSeconds: Int
+  confidence: Float
+  startedAt: DateTime
+  finishedAt: DateTime
+  processingDurationSeconds: Int
+}
+
+type TranscriptSegment {
+  segmentId: ID!
+  transcriptionId: ID!
+  speakerId: String
+  speakerName: String
+  startTimeSeconds: Float!
+  endTimeSeconds: Float!
+  text: String!
+  confidence: Float
+  words: [TranscriptWord!]
+}
+
+type TranscriptWord {
+  word: String!
+  startTimeSeconds: Float!
+  endTimeSeconds: Float!
+  confidence: Float
+  speakerId: String
+}
+
+type TranscriptionConnection {
+  edges: [TranscriptionEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type TranscriptionEdge {
+  node: Transcription!
+  cursor: String!
+}
+
+# ─────────────────────────────────────────────
+# Chat Types
+# ─────────────────────────────────────────────
+
+type Chat {
+  chatId: ID!
+  meetingId: ID!
+  messages: [ChatMessage!]!
+  messageCount: Int!
+}
+
+type ChatMessage {
+  messageId: ID!
+  chatId: ID!
+  senderId: String!
+  senderName: String
+  text: String!
+  sentAt: DateTime!
+  editedAt: DateTime
+  deleted: Boolean!
+}
+
+# ─────────────────────────────────────────────
+# Presentation and Layout Types
+# ─────────────────────────────────────────────
+
+type Presenter {
+  participantId: ID!
+  displayName: String
+  mode: PresentationMode!
+  startedAt: DateTime!
+  screenShare: ScreenShare
+}
+
+type Layout {
+  layoutId: ID!
+  meetingId: ID!
+  type: LayoutType!
+  spotlightParticipantId: ID
+  pinnedParticipantIds: [ID!]
+  hiddenParticipantIds: [ID!]
+  updatedAt: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# Background Types
+# ─────────────────────────────────────────────
+
+union Background = BackgroundImage | CustomBackground | VirtualBackground
+
+type BackgroundImage {
+  imageId: ID!
+  name: String!
+  thumbnailUrl: URL!
+  fullUrl: URL!
+  category: String
+}
+
+type CustomBackground {
+  backgroundId: ID!
+  organizationId: ID!
+  name: String
+  imageUrl: URL!
+  thumbnailUrl: URL
+  uploadedAt: DateTime!
+  fileSizeBytes: Int
+}
+
+type VirtualBackground {
+  backgroundId: ID!
+  type: String!
+  active: Boolean!
+  source: Background
+}
+
+# ─────────────────────────────────────────────
+# Access Control Types
+# ─────────────────────────────────────────────
+
+type Knock {
+  knockId: ID!
+  roomId: ID!
+  participantId: ID
+  displayName: String
+  status: KnockStatus!
+  knockedAt: DateTime!
+  resolvedAt: DateTime
+  resolvedBy: String
+}
+
+type WaitingRoom {
+  roomId: ID!
+  enabled: Boolean!
+  pendingKnocks: [Knock!]!
+  pendingCount: Int!
+}
+
+type PermissionsConfig {
+  cameraEnabled: Boolean!
+  microphoneEnabled: Boolean!
+  screenShareEnabled: Boolean!
+  chatEnabled: Boolean!
+  fileShareEnabled: Boolean!
+  breakoutEnabled: Boolean!
+  raiseHandEnabled: Boolean!
+  participantListVisible: Boolean!
+}
+
+# ─────────────────────────────────────────────
+# Branding Types
+# ─────────────────────────────────────────────
+
+type Branding {
+  brandingId: ID!
+  organizationId: ID!
+  details: BrandingDetails!
+  logo: CustomLogo
+  primaryColor: CustomColor
+  updatedAt: DateTime!
+}
+
+type BrandingDetails {
+  brandName: String
+  logoUrl: URL
+  primaryColor: HexColor
+  accentColor: HexColor
+  backgroundColor: HexColor
+  textColor: HexColor
+  borderRadius: String
+  fontFamily: String
+  hideWherebyCoBranding: Boolean!
+}
+
+type CustomLogo {
+  logoId: ID!
+  url: URL!
+  width: Int
+  height: Int
+  altText: String
+  uploadedAt: DateTime!
+}
+
+type CustomColor {
+  hex: HexColor!
+  name: String
+  usageContext: String
+}
+
+# ─────────────────────────────────────────────
+# Streaming Types
+# ─────────────────────────────────────────────
+
+type LiveStream {
+  streamId: ID!
+  meetingId: ID!
+  status: StreamStatus!
+  config: StreamConfig!
+  startedAt: DateTime
+  stoppedAt: DateTime
+  viewerUrl: URL
+  viewerCount: Int
+}
+
+type StreamConfig {
+  destinationUrl: URL!
+  streamKey: String!
+  protocol: String!
+  resolution: String
+  bitrate: Int
+  frameRate: Int
+}
+
+# ─────────────────────────────────────────────
+# Webhook Types
+# ─────────────────────────────────────────────
+
+type Webhook {
+  webhookId: ID!
+  organizationId: ID!
+  url: URL!
+  events: [WebhookEvent!]!
+  active: Boolean!
+  secret: String
+  createdAt: DateTime!
+  updatedAt: DateTime
+  lastDeliveryAt: DateTime
+  lastDeliveryStatus: Int
+}
+
+type WebhookEventPayload {
+  eventId: ID!
+  event: WebhookEvent!
+  webhookId: ID!
+  organizationId: ID!
+  roomName: String
+  meetingId: ID
+  participantId: ID
+  timestamp: DateTime!
+  data: String
+  signature: String!
+}
+
+# ─────────────────────────────────────────────
+# Organization Types
+# ─────────────────────────────────────────────
+
+type Organization {
+  organizationId: ID!
+  name: String!
+  subdomain: String
+  plan: String!
+  createdAt: DateTime!
+  branding: Branding
+  rooms: RoomConnection
+  apiKeys: [APIKey!]!
+  webhooks: [Webhook!]!
+  rateLimit: RateLimit
+}
+
+type RateLimit {
+  requestsPerMinute: Int!
+  remainingRequests: Int
+  resetAt: DateTime
+  tier: String!
+}
+
+# ─────────────────────────────────────────────
+# Utility Types
+# ─────────────────────────────────────────────
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type DeleteResult {
+  success: Boolean!
+  id: ID!
+  deletedAt: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# Input Types
+# ─────────────────────────────────────────────
+
+input CreateMeetingInput {
+  endDate: DateTime
+  fields: [String!]
+  roomMode: String
+  roomNamePrefix: String
+  roomNamePattern: String
+  recording: RecordingInput
+  startDate: DateTime
+  templateType: String
+  isLocked: Boolean
+  roomConfig: RoomConfigInput
+}
+
+input RoomConfigInput {
+  privacy: RoomPrivacy
+  lockStatus: LockStatus
+  waitingRoomEnabled: Boolean
+  cloudRecordingEnabled: Boolean
+  transcriptionEnabled: Boolean
+  chatEnabled: Boolean
+  screenShareEnabled: Boolean
+  maxParticipants: Int
+}
+
+input RecordingInput {
+  type: RecordingMode
+  destination: String
+}
+
+input CreateRoomInput {
+  roomName: String
+  privacy: RoomPrivacy
+  config: RoomConfigInput
+  branding: BrandingInput
+}
+
+input CreateMeetingTokenInput {
+  roomUrl: URL!
+  expiresAt: DateTime
+  displayName: String
+  userId: String
+  metadata: String
+  role: ParticipantRole
+  permissions: PermissionsInput
+}
+
+input PermissionsInput {
+  cameraEnabled: Boolean
+  microphoneEnabled: Boolean
+  screenShareEnabled: Boolean
+  chatEnabled: Boolean
+}
+
+input BrandingInput {
+  logoUrl: URL
+  primaryColor: HexColor
+  accentColor: HexColor
+  backgroundColor: HexColor
+  hideWherebyCoBranding: Boolean
+}
+
+input UpdateBrandingInput {
+  logoUrl: URL
+  primaryColor: HexColor
+  accentColor: HexColor
+  backgroundColor: HexColor
+  fontFamily: String
+  borderRadius: String
+  hideWherebyCoBranding: Boolean
+}
+
+input CreateWebhookInput {
+  url: URL!
+  events: [WebhookEvent!]!
+  secret: String
+}
+
+# ─────────────────────────────────────────────
+# Root Types
+# ─────────────────────────────────────────────
+
+type Query {
+  meeting(meetingId: ID!): Meeting
+  meetings(roomId: ID, after: String, first: Int): MeetingConnection!
+  room(roomId: ID!): Room
+  rooms(after: String, first: Int): RoomConnection!
+  recording(recordingId: ID!): CloudRecording
+  recordings(meetingId: ID, after: String, first: Int): RecordingConnection!
+  transcription(transcriptionId: ID!): Transcription
+  transcriptions(meetingId: ID, after: String, first: Int): TranscriptionConnection!
+  organization: Organization
+  webhooks: [Webhook!]!
+  knock(knockId: ID!): Knock
+  waitingRoom(roomId: ID!): WaitingRoom
+}
+
+type Mutation {
+  createMeeting(input: CreateMeetingInput!): Meeting!
+  deleteMeeting(meetingId: ID!): DeleteResult!
+  createRoom(input: CreateRoomInput!): Room!
+  deleteRoom(roomId: ID!): DeleteResult!
+  createMeetingToken(input: CreateMeetingTokenInput!): MeetingToken!
+  startCloudRecording(meetingId: ID!): CloudRecording!
+  stopCloudRecording(meetingId: ID!): CloudRecording!
+  deleteRecording(recordingId: ID!): DeleteResult!
+  startTranscription(meetingId: ID!): Transcription!
+  stopTranscription(transcriptionId: ID!): Transcription!
+  deleteTranscription(transcriptionId: ID!): DeleteResult!
+  approveKnock(knockId: ID!): Knock!
+  rejectKnock(knockId: ID!): Knock!
+  lockRoom(roomId: ID!): Room!
+  unlockRoom(roomId: ID!): Room!
+  updateBranding(input: UpdateBrandingInput!): Branding!
+  createWebhook(input: CreateWebhookInput!): Webhook!
+  deleteWebhook(webhookId: ID!): DeleteResult!
+}
+
+type Subscription {
+  meetingStarted(roomId: ID): Meeting!
+  meetingEnded(meetingId: ID!): Meeting!
+  participantJoined(meetingId: ID!): Participant!
+  participantLeft(meetingId: ID!): Participant!
+  knockReceived(roomId: ID!): Knock!
+  recordingStatusChanged(meetingId: ID!): CloudRecording!
+  transcriptionStatusChanged(meetingId: ID!): Transcription!
+  chatMessageReceived(meetingId: ID!): ChatMessage!
+}
