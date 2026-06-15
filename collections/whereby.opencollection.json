@@ -1,0 +1,465 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Whereby REST API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "List meetings",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.whereby.dev/v1/meetings"
+      },
+      "docs": "List meetings"
+    },
+    {
+      "info": {
+        "name": "Create a meeting",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.whereby.dev/v1/meetings",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Creates a transient room that is available between creation and an hour after the given endDate."
+    },
+    {
+      "info": {
+        "name": "Retrieve a meeting",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.whereby.dev/v1/meetings/:meetingId",
+        "params": [
+          {
+            "name": "meetingId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Retrieve a meeting"
+    },
+    {
+      "info": {
+        "name": "Delete a meeting",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.whereby.dev/v1/meetings/:meetingId",
+        "params": [
+          {
+            "name": "meetingId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Delete a meeting"
+    },
+    {
+      "info": {
+        "name": "Upload a logo for a room theme",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.whereby.dev/v1/rooms/:roomName/theme/logo",
+        "params": [
+          {
+            "name": "roomName",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "multipart-form",
+          "data": [
+            {
+              "name": "file",
+              "type": "text",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "docs": "Upload a logo for a room theme"
+    },
+    {
+      "info": {
+        "name": "Update theme tokens for a room",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.whereby.dev/v1/rooms/:roomName/theme/tokens",
+        "params": [
+          {
+            "name": "roomName",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Update theme tokens for a room"
+    },
+    {
+      "info": {
+        "name": "Update room background image",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.whereby.dev/v1/rooms/:roomName/theme/room-background",
+        "params": [
+          {
+            "name": "roomName",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "multipart-form",
+          "data": [
+            {
+              "name": "file",
+              "type": "text",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "docs": "Update room background image"
+    },
+    {
+      "info": {
+        "name": "Update room knock page background image",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.whereby.dev/v1/rooms/:roomName/theme/room-knock-page-background",
+        "params": [
+          {
+            "name": "roomName",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "multipart-form",
+          "data": [
+            {
+              "name": "file",
+              "type": "text",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "docs": "Update room knock page background image"
+    },
+    {
+      "info": {
+        "name": "List recordings",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.whereby.dev/v1/recordings"
+      },
+      "docs": "List recordings"
+    },
+    {
+      "info": {
+        "name": "Retrieve a recording",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.whereby.dev/v1/recordings/:recordingId",
+        "params": [
+          {
+            "name": "recordingId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Retrieve a recording"
+    },
+    {
+      "info": {
+        "name": "Delete a recording",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.whereby.dev/v1/recordings/:recordingId",
+        "params": [
+          {
+            "name": "recordingId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Delete a recording"
+    },
+    {
+      "info": {
+        "name": "Get an access link for a recording",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.whereby.dev/v1/recordings/:recordingId/access-link",
+        "params": [
+          {
+            "name": "recordingId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Get an access link for a recording"
+    },
+    {
+      "info": {
+        "name": "Bulk delete recordings",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.whereby.dev/v1/recordings/bulk-delete",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Bulk delete recordings"
+    },
+    {
+      "info": {
+        "name": "List transcriptions",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.whereby.dev/v1/transcriptions"
+      },
+      "docs": "List transcriptions"
+    },
+    {
+      "info": {
+        "name": "Create a transcription",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.whereby.dev/v1/transcriptions",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Create a transcription"
+    },
+    {
+      "info": {
+        "name": "Retrieve a transcription",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.whereby.dev/v1/transcriptions/:transcriptionId",
+        "params": [
+          {
+            "name": "transcriptionId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Retrieve a transcription"
+    },
+    {
+      "info": {
+        "name": "Delete a transcription",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.whereby.dev/v1/transcriptions/:transcriptionId",
+        "params": [
+          {
+            "name": "transcriptionId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Delete a transcription"
+    },
+    {
+      "info": {
+        "name": "Get an access link for a transcription",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.whereby.dev/v1/transcriptions/:transcriptionId/access-link",
+        "params": [
+          {
+            "name": "transcriptionId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Get an access link for a transcription"
+    },
+    {
+      "info": {
+        "name": "Bulk delete transcriptions",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.whereby.dev/v1/transcriptions/bulk-delete",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Bulk delete transcriptions"
+    },
+    {
+      "info": {
+        "name": "List meeting summaries",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.whereby.dev/v1/summaries"
+      },
+      "docs": "List meeting summaries"
+    },
+    {
+      "info": {
+        "name": "Create a meeting summary",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.whereby.dev/v1/summaries",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Create a meeting summary"
+    },
+    {
+      "info": {
+        "name": "Retrieve a summary",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.whereby.dev/v1/summaries/:summaryId",
+        "params": [
+          {
+            "name": "summaryId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Retrieve a summary"
+    },
+    {
+      "info": {
+        "name": "Delete a summary",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.whereby.dev/v1/summaries/:summaryId",
+        "params": [
+          {
+            "name": "summaryId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Delete a summary"
+    },
+    {
+      "info": {
+        "name": "Insights for rooms",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.whereby.dev/v1/insights/rooms"
+      },
+      "docs": "Insights for rooms"
+    },
+    {
+      "info": {
+        "name": "Insights for room sessions",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.whereby.dev/v1/insights/room-sessions"
+      },
+      "docs": "Insights for room sessions"
+    },
+    {
+      "info": {
+        "name": "Insights for participants",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.whereby.dev/v1/insights/participants"
+      },
+      "docs": "Insights for participants"
+    },
+    {
+      "info": {
+        "name": "Insights for a specific participant",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.whereby.dev/v1/insights/participant"
+      },
+      "docs": "Insights for a specific participant"
+    }
+  ],
+  "bundled": true
+}
