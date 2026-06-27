@@ -81,7 +81,7 @@ common:
 - url: https://whereby.com/information/embedded/pricing
   type: Pricing
 - url: https://whereby.com/org/signup/embedded?signupFlowPlanType=embedded_free
-  type: SignUp
+  type: Signup
 - url: https://whereby.com/information/select-product
   type: Product
 - url: https://whereby.frontkb.com/en
@@ -128,7 +128,7 @@ common:
   - https://whereby.com/information/embedded/
   - https://docs.whereby.com/reference/whereby-rest-api-reference
   updated: '2026-05-23'
-- type: LLMsTxt
+- type: LlmsText
   url: https://docs.whereby.com/llms.txt
 maintainers:
 - FN: Kin Lane
