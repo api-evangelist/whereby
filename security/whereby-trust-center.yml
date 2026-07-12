@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: searched
+probe: true
+source: https://trust.whereby.com/
+url: https://trust.whereby.com/
+certifications:
+- ISO 27001
+- HIPAA
+- GDPR
+evidence:
+- source: https://trust.whereby.com/
+  keywords:
+  - iso/iec 27001
+  - hipaa
+  - trust center
+  - gdpr

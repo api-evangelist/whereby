@@ -66,6 +66,12 @@ apis:
   - url: https://docs.whereby.com/reference/webhooks
     type: Documentation
 common:
+- type: TrustCenter
+  url: security/whereby-trust-center.yml
+- type: DomainSecurity
+  url: security/whereby-domain-security.yml
+- type: Authentication
+  url: authentication/whereby-authentication.yml
 - url: https://whereby.com
   type: Website
 - url: https://whereby.com/information/embedded/
