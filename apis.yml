@@ -66,6 +66,8 @@ apis:
   - url: https://docs.whereby.com/reference/webhooks
     type: Documentation
 common:
+- type: AgenticAccess
+  url: agentic-access/whereby-agentic-access.yml
 - type: TrustCenter
   url: security/whereby-trust-center.yml
 - type: DomainSecurity
