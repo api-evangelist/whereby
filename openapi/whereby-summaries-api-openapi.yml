@@ -1,0 +1,76 @@
+openapi: 3.1.0
+info:
+  title: Whereby REST Insights Summaries API
+  description: 'Whereby REST API for managing meetings, rooms, recordings, transcriptions,
+
+    summaries and insights. Authenticated with a Bearer token issued from the
+
+    Whereby Embedded dashboard.
+
+    '
+  version: '1.0'
+  contact:
+    name: Whereby
+    url: https://docs.whereby.com
+servers:
+- url: https://api.whereby.dev/v1
+  description: Production
+security:
+- BearerAuth: []
+tags:
+- name: Summaries
+paths:
+  /summaries:
+    get:
+      summary: List meeting summaries
+      operationId: listSummaries
+      responses:
+        '200':
+          description: Summary list
+          content:
+            application/json: {}
+      tags:
+      - Summaries
+    post:
+      summary: Create a meeting summary
+      operationId: createSummary
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Created
+      tags:
+      - Summaries
+  /summaries/{summaryId}:
+    parameters:
+    - name: summaryId
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Retrieve a summary
+      operationId: getSummary
+      responses:
+        '200':
+          description: Summary
+      tags:
+      - Summaries
+    delete:
+      summary: Delete a summary
+      operationId: deleteSummary
+      responses:
+        '204':
+          description: Deleted
+      tags:
+      - Summaries
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

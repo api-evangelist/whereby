@@ -1,0 +1,103 @@
+openapi: 3.1.0
+info:
+  title: Whereby REST Insights Recordings API
+  description: 'Whereby REST API for managing meetings, rooms, recordings, transcriptions,
+
+    summaries and insights. Authenticated with a Bearer token issued from the
+
+    Whereby Embedded dashboard.
+
+    '
+  version: '1.0'
+  contact:
+    name: Whereby
+    url: https://docs.whereby.com
+servers:
+- url: https://api.whereby.dev/v1
+  description: Production
+security:
+- BearerAuth: []
+tags:
+- name: Recordings
+paths:
+  /recordings:
+    get:
+      summary: List recordings
+      operationId: listRecordings
+      responses:
+        '200':
+          description: Recording list
+          content:
+            application/json: {}
+      tags:
+      - Recordings
+  /recordings/{recordingId}:
+    parameters:
+    - name: recordingId
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Retrieve a recording
+      operationId: getRecording
+      responses:
+        '200':
+          description: Recording
+          content:
+            application/json: {}
+      tags:
+      - Recordings
+    delete:
+      summary: Delete a recording
+      operationId: deleteRecording
+      responses:
+        '204':
+          description: Deleted
+      tags:
+      - Recordings
+  /recordings/{recordingId}/access-link:
+    get:
+      summary: Get an access link for a recording
+      operationId: getRecordingAccessLink
+      parameters:
+      - name: recordingId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Access link
+          content:
+            application/json: {}
+      tags:
+      - Recordings
+  /recordings/bulk-delete:
+    post:
+      summary: Bulk delete recordings
+      operationId: bulkDeleteRecordings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                recordingIds:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Bulk delete result
+          content:
+            application/json: {}
+      tags:
+      - Recordings
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,72 @@
+openapi: 3.1.0
+info:
+  title: Whereby REST Insights API
+  description: 'Whereby REST API for managing meetings, rooms, recordings, transcriptions,
+
+    summaries and insights. Authenticated with a Bearer token issued from the
+
+    Whereby Embedded dashboard.
+
+    '
+  version: '1.0'
+  contact:
+    name: Whereby
+    url: https://docs.whereby.com
+servers:
+- url: https://api.whereby.dev/v1
+  description: Production
+security:
+- BearerAuth: []
+tags:
+- name: Insights
+paths:
+  /insights/rooms:
+    get:
+      summary: Insights for rooms
+      operationId: insightsRooms
+      responses:
+        '200':
+          description: Insights data
+          content:
+            application/json: {}
+      tags:
+      - Insights
+  /insights/room-sessions:
+    get:
+      summary: Insights for room sessions
+      operationId: insightsRoomSessions
+      responses:
+        '200':
+          description: Insights data
+          content:
+            application/json: {}
+      tags:
+      - Insights
+  /insights/participants:
+    get:
+      summary: Insights for participants
+      operationId: insightsParticipants
+      responses:
+        '200':
+          description: Insights data
+          content:
+            application/json: {}
+      tags:
+      - Insights
+  /insights/participant:
+    get:
+      summary: Insights for a specific participant
+      operationId: insightsParticipant
+      responses:
+        '200':
+          description: Insights data
+          content:
+            application/json: {}
+      tags:
+      - Insights
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

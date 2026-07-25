@@ -1,0 +1,124 @@
+openapi: 3.1.0
+info:
+  title: Whereby REST Insights Rooms API
+  description: 'Whereby REST API for managing meetings, rooms, recordings, transcriptions,
+
+    summaries and insights. Authenticated with a Bearer token issued from the
+
+    Whereby Embedded dashboard.
+
+    '
+  version: '1.0'
+  contact:
+    name: Whereby
+    url: https://docs.whereby.com
+servers:
+- url: https://api.whereby.dev/v1
+  description: Production
+security:
+- BearerAuth: []
+tags:
+- name: Rooms
+paths:
+  /rooms/{roomName}/theme/logo:
+    put:
+      summary: Upload a logo for a room theme
+      operationId: putRoomThemeLogo
+      parameters:
+      - name: roomName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Theme logo updated
+      tags:
+      - Rooms
+  /rooms/{roomName}/theme/tokens:
+    put:
+      summary: Update theme tokens for a room
+      operationId: putRoomThemeTokens
+      parameters:
+      - name: roomName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Theme tokens updated
+      tags:
+      - Rooms
+  /rooms/{roomName}/theme/room-background:
+    put:
+      summary: Update room background image
+      operationId: putRoomBackground
+      parameters:
+      - name: roomName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Updated
+      tags:
+      - Rooms
+  /rooms/{roomName}/theme/room-knock-page-background:
+    put:
+      summary: Update room knock page background image
+      operationId: putRoomKnockBackground
+      parameters:
+      - name: roomName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Updated
+      tags:
+      - Rooms
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

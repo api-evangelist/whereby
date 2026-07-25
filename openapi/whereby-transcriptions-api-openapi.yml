@@ -1,0 +1,115 @@
+openapi: 3.1.0
+info:
+  title: Whereby REST Insights Transcriptions API
+  description: 'Whereby REST API for managing meetings, rooms, recordings, transcriptions,
+
+    summaries and insights. Authenticated with a Bearer token issued from the
+
+    Whereby Embedded dashboard.
+
+    '
+  version: '1.0'
+  contact:
+    name: Whereby
+    url: https://docs.whereby.com
+servers:
+- url: https://api.whereby.dev/v1
+  description: Production
+security:
+- BearerAuth: []
+tags:
+- name: Transcriptions
+paths:
+  /transcriptions:
+    get:
+      summary: List transcriptions
+      operationId: listTranscriptions
+      responses:
+        '200':
+          description: Transcription list
+          content:
+            application/json: {}
+      tags:
+      - Transcriptions
+    post:
+      summary: Create a transcription
+      operationId: createTranscription
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Transcription created
+      tags:
+      - Transcriptions
+  /transcriptions/{transcriptionId}:
+    parameters:
+    - name: transcriptionId
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Retrieve a transcription
+      operationId: getTranscription
+      responses:
+        '200':
+          description: Transcription
+          content:
+            application/json: {}
+      tags:
+      - Transcriptions
+    delete:
+      summary: Delete a transcription
+      operationId: deleteTranscription
+      responses:
+        '204':
+          description: Deleted
+      tags:
+      - Transcriptions
+  /transcriptions/{transcriptionId}/access-link:
+    get:
+      summary: Get an access link for a transcription
+      operationId: getTranscriptionAccessLink
+      parameters:
+      - name: transcriptionId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Access link
+          content:
+            application/json: {}
+      tags:
+      - Transcriptions
+  /transcriptions/bulk-delete:
+    post:
+      summary: Bulk delete transcriptions
+      operationId: bulkDeleteTranscriptions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                transcriptionIds:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Bulk delete result
+      tags:
+      - Transcriptions
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

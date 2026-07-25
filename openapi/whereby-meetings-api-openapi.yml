@@ -1,0 +1,105 @@
+openapi: 3.1.0
+info:
+  title: Whereby REST Insights Meetings API
+  description: 'Whereby REST API for managing meetings, rooms, recordings, transcriptions,
+
+    summaries and insights. Authenticated with a Bearer token issued from the
+
+    Whereby Embedded dashboard.
+
+    '
+  version: '1.0'
+  contact:
+    name: Whereby
+    url: https://docs.whereby.com
+servers:
+- url: https://api.whereby.dev/v1
+  description: Production
+security:
+- BearerAuth: []
+tags:
+- name: Meetings
+paths:
+  /meetings:
+    get:
+      summary: List meetings
+      operationId: listMeetings
+      responses:
+        '200':
+          description: Meeting list
+          content:
+            application/json: {}
+      tags:
+      - Meetings
+    post:
+      summary: Create a meeting
+      description: Creates a transient room that is available between creation and an hour after the given endDate.
+      operationId: createMeeting
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                endDate:
+                  type: string
+                  format: date-time
+                roomNamePrefix:
+                  type: string
+                roomNamePattern:
+                  type: string
+                  enum:
+                  - uuid
+                  - human-short
+                roomMode:
+                  type: string
+                  enum:
+                  - normal
+                  - group
+                isLocked:
+                  type: boolean
+                fields:
+                  type: array
+                  items:
+                    type: string
+              required:
+              - endDate
+      responses:
+        '201':
+          description: Meeting created
+          content:
+            application/json: {}
+      tags:
+      - Meetings
+  /meetings/{meetingId}:
+    parameters:
+    - name: meetingId
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Retrieve a meeting
+      operationId: getMeeting
+      responses:
+        '200':
+          description: Meeting
+          content:
+            application/json: {}
+      tags:
+      - Meetings
+    delete:
+      summary: Delete a meeting
+      operationId: deleteMeeting
+      responses:
+        '204':
+          description: Deleted
+      tags:
+      - Meetings
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
