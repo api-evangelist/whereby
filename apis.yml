@@ -5,6 +5,19 @@ description: Whereby is an embeddable video API plus standalone meetings product
   few lines of code or build deeply customized experiences via SDKs. The REST API
   at api.whereby.dev/v1 covers meetings, rooms, recordings, transcriptions, summaries,
   and insights.
+accessModel:
+  pricing: free
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Free · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 image: https://whereby.com/static/whereby-logo.svg
 tags:
 - Video
@@ -23,9 +36,9 @@ access: 3rd-Party
 apis:
 - aid: whereby:whereby-rest-api
   name: Whereby REST API
-  description: Bearer-authenticated REST API for creating meeting rooms, managing
-    live sessions, retrieving recordings, transcriptions, summaries, and pulling usage
-    insights. Base URL https://api.whereby.dev/v1.
+  description: >-
+    Bearer-authenticated REST API for creating meeting rooms, managing live sessions, retrieving recordings,
+    transcriptions, summaries, and pulling usage insights. Base URL https://api.whereby.dev/v1.
   tags:
   - Meetings
   - Rooms
@@ -54,10 +67,10 @@ apis:
     type: GraphQL
 - aid: whereby:whereby-webhooks
   name: Whereby Webhooks
-  description: Outbound webhook notifications for room and session lifecycle events
-    including client join/leave, knock, session start/end, recording finished, transcription
-    started/finished/failed, and assistant requested. Signed with the Whereby-Signature
-    header.
+  description: >-
+    Outbound webhook notifications for room and session lifecycle events including client join/leave,
+    knock, session start/end, recording finished, transcription started/finished/failed, and assistant
+    requested. Signed with the Whereby-Signature header.
   tags:
   - Webhooks
   - Events
@@ -65,6 +78,54 @@ apis:
   properties:
   - url: https://docs.whereby.com/reference/webhooks
     type: Documentation
+- aid: whereby:whereby-insights-api
+  name: Whereby Insights API
+  description: The Insights API from Whereby — 4 operation(s) for insights.
+  tags:
+  - Insights
+  properties:
+  - type: OpenAPI
+    url: openapi/whereby-insights-api-openapi.yml
+- aid: whereby:whereby-meetings-api
+  name: Whereby Meetings API
+  description: The Meetings API from Whereby — 2 operation(s) for meetings.
+  tags:
+  - Meetings
+  properties:
+  - type: OpenAPI
+    url: openapi/whereby-meetings-api-openapi.yml
+- aid: whereby:whereby-recordings-api
+  name: Whereby Recordings API
+  description: The Recordings API from Whereby — 4 operation(s) for recordings.
+  tags:
+  - Recordings
+  properties:
+  - type: OpenAPI
+    url: openapi/whereby-recordings-api-openapi.yml
+- aid: whereby:whereby-rooms-api
+  name: Whereby Rooms API
+  description: The Rooms API from Whereby — 4 operation(s) for rooms.
+  tags:
+  - Rooms
+  properties:
+  - type: OpenAPI
+    url: openapi/whereby-rooms-api-openapi.yml
+- aid: whereby:whereby-summaries-api
+  name: Whereby Summaries API
+  description: The Summaries API from Whereby — 2 operation(s) for summaries.
+  tags:
+  - Summaries
+  properties:
+  - type: OpenAPI
+    url: openapi/whereby-summaries-api-openapi.yml
+- aid: whereby:whereby-transcriptions-api
+  name: Whereby Transcriptions API
+  description: The Transcriptions API from Whereby — 4 operation(s) for transcriptions.
+  tags:
+  - Transcriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/whereby-transcriptions-api-openapi.yml
 common:
 - type: AgenticAccess
   url: agentic-access/whereby-agentic-access.yml
