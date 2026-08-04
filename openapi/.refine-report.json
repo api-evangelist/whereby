@@ -1,0 +1,24 @@
+{
+  "provider": "whereby",
+  "sources": [
+    "whereby-insights-api-openapi.yml",
+    "whereby-meetings-api-openapi.yml",
+    "whereby-recordings-api-openapi.yml",
+    "whereby-rooms-api-openapi.yml",
+    "whereby-summaries-api-openapi.yml",
+    "whereby-transcriptions-api-openapi.yml"
+  ],
+  "outputs": [
+    "whereby-insights-api-openapi.yml",
+    "whereby-meetings-api-openapi.yml",
+    "whereby-recordings-api-openapi.yml",
+    "whereby-rooms-api-openapi.yml",
+    "whereby-summaries-api-openapi.yml",
+    "whereby-transcriptions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
