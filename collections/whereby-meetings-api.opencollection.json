@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Whereby REST Insights Meetings API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Meetings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List meetings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.whereby.dev/v1/meetings"
+          },
+          "docs": "List meetings"
+        },
+        {
+          "info": {
+            "name": "Create a meeting",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.whereby.dev/v1/meetings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a transient room that is available between creation and an hour after the given endDate."
+        },
+        {
+          "info": {
+            "name": "Retrieve a meeting",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.whereby.dev/v1/meetings/:meetingId",
+            "params": [
+              {
+                "name": "meetingId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a meeting"
+        },
+        {
+          "info": {
+            "name": "Delete a meeting",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.whereby.dev/v1/meetings/:meetingId",
+            "params": [
+              {
+                "name": "meetingId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a meeting"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

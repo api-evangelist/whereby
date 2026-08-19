@@ -1,0 +1,119 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Whereby REST Insights Transcriptions API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transcriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List transcriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.whereby.dev/v1/transcriptions"
+          },
+          "docs": "List transcriptions"
+        },
+        {
+          "info": {
+            "name": "Create a transcription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.whereby.dev/v1/transcriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a transcription"
+        },
+        {
+          "info": {
+            "name": "Retrieve a transcription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.whereby.dev/v1/transcriptions/:transcriptionId",
+            "params": [
+              {
+                "name": "transcriptionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a transcription"
+        },
+        {
+          "info": {
+            "name": "Delete a transcription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.whereby.dev/v1/transcriptions/:transcriptionId",
+            "params": [
+              {
+                "name": "transcriptionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a transcription"
+        },
+        {
+          "info": {
+            "name": "Get an access link for a transcription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.whereby.dev/v1/transcriptions/:transcriptionId/access-link",
+            "params": [
+              {
+                "name": "transcriptionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get an access link for a transcription"
+        },
+        {
+          "info": {
+            "name": "Bulk delete transcriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.whereby.dev/v1/transcriptions/bulk-delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bulk delete transcriptions"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

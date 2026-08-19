@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Whereby REST Insights API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Insights",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Insights for rooms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.whereby.dev/v1/insights/rooms"
+          },
+          "docs": "Insights for rooms"
+        },
+        {
+          "info": {
+            "name": "Insights for room sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.whereby.dev/v1/insights/room-sessions"
+          },
+          "docs": "Insights for room sessions"
+        },
+        {
+          "info": {
+            "name": "Insights for participants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.whereby.dev/v1/insights/participants"
+          },
+          "docs": "Insights for participants"
+        },
+        {
+          "info": {
+            "name": "Insights for a specific participant",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.whereby.dev/v1/insights/participant"
+          },
+          "docs": "Insights for a specific participant"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,130 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Whereby REST Insights Rooms API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Rooms",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload a logo for a room theme",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.whereby.dev/v1/rooms/:roomName/theme/logo",
+            "params": [
+              {
+                "name": "roomName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload a logo for a room theme"
+        },
+        {
+          "info": {
+            "name": "Update theme tokens for a room",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.whereby.dev/v1/rooms/:roomName/theme/tokens",
+            "params": [
+              {
+                "name": "roomName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update theme tokens for a room"
+        },
+        {
+          "info": {
+            "name": "Update room background image",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.whereby.dev/v1/rooms/:roomName/theme/room-background",
+            "params": [
+              {
+                "name": "roomName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Update room background image"
+        },
+        {
+          "info": {
+            "name": "Update room knock page background image",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.whereby.dev/v1/rooms/:roomName/theme/room-knock-page-background",
+            "params": [
+              {
+                "name": "roomName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Update room knock page background image"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

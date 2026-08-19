@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Whereby REST Insights Summaries API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Summaries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List meeting summaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.whereby.dev/v1/summaries"
+          },
+          "docs": "List meeting summaries"
+        },
+        {
+          "info": {
+            "name": "Create a meeting summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.whereby.dev/v1/summaries",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a meeting summary"
+        },
+        {
+          "info": {
+            "name": "Retrieve a summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.whereby.dev/v1/summaries/:summaryId",
+            "params": [
+              {
+                "name": "summaryId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a summary"
+        },
+        {
+          "info": {
+            "name": "Delete a summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.whereby.dev/v1/summaries/:summaryId",
+            "params": [
+              {
+                "name": "summaryId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a summary"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

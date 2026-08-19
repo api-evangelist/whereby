@@ -1,0 +1,104 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Whereby REST Insights Recordings API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Recordings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List recordings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.whereby.dev/v1/recordings"
+          },
+          "docs": "List recordings"
+        },
+        {
+          "info": {
+            "name": "Retrieve a recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.whereby.dev/v1/recordings/:recordingId",
+            "params": [
+              {
+                "name": "recordingId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a recording"
+        },
+        {
+          "info": {
+            "name": "Delete a recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.whereby.dev/v1/recordings/:recordingId",
+            "params": [
+              {
+                "name": "recordingId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a recording"
+        },
+        {
+          "info": {
+            "name": "Get an access link for a recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.whereby.dev/v1/recordings/:recordingId/access-link",
+            "params": [
+              {
+                "name": "recordingId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get an access link for a recording"
+        },
+        {
+          "info": {
+            "name": "Bulk delete recordings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.whereby.dev/v1/recordings/bulk-delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bulk delete recordings"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
