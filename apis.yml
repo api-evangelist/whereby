@@ -44,6 +44,13 @@ apis:
   - Rooms
   - Recordings
   - Transcriptions
+  - Summary
+  - Insights
+  tags_raw:
+  - Meetings
+  - Rooms
+  - Recordings
+  - Transcriptions
   - Summaries
   - Insights
   properties:
@@ -72,6 +79,10 @@ apis:
     knock, session start/end, recording finished, transcription started/finished/failed, and assistant
     requested. Signed with the Whereby-Signature header.
   tags:
+  - Webhook
+  - Event
+  - Async
+  tags_raw:
   - Webhooks
   - Events
   - Async
@@ -114,6 +125,8 @@ apis:
   name: Whereby Summaries API
   description: The Summaries API from Whereby — 2 operation(s) for summaries.
   tags:
+  - Summary
+  tags_raw:
   - Summaries
   properties:
   - type: OpenAPI
