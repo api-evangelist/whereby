@@ -55,7 +55,7 @@ apis:
   tags:
   - Meetings
   - Rooms
-  - Recordings
+  - Recording
   - Transcriptions
   - Summary
   - Insights
@@ -122,6 +122,8 @@ apis:
   name: Whereby Recordings API
   description: The Recordings API from Whereby — 4 operation(s) for recordings.
   tags:
+  - Recording
+  tags_raw:
   - Recordings
   properties:
   - type: OpenAPI
