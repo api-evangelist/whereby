@@ -1,12 +1,7 @@
 {
   "provider": "whereby",
   "sources": [
-    "whereby-insights-api-openapi.yml",
-    "whereby-meetings-api-openapi.yml",
-    "whereby-recordings-api-openapi.yml",
-    "whereby-rooms-api-openapi.yml",
-    "whereby-summaries-api-openapi.yml",
-    "whereby-transcriptions-api-openapi.yml"
+    "_original/whereby-openapi.yml"
   ],
   "outputs": [
     "whereby-insights-api-openapi.yml",
@@ -19,6 +14,50 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "whereby-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "whereby-openapi.yml: tagged paths GET /meetings -> Meetings",
+    "whereby-openapi.yml: tagged paths POST /meetings -> Meetings",
+    "whereby-openapi.yml: tagged paths GET /meetings/{meetingId} -> Meetings",
+    "whereby-openapi.yml: tagged paths DELETE /meetings/{meetingId} -> Meetings",
+    "whereby-openapi.yml: tagged paths PUT /rooms/{roomName}/theme/logo -> Rooms",
+    "whereby-openapi.yml: tagged paths PUT /rooms/{roomName}/theme/tokens -> Rooms",
+    "whereby-openapi.yml: tagged paths PUT /rooms/{roomName}/theme/room-background -> Rooms",
+    "whereby-openapi.yml: tagged paths PUT /rooms/{roomName}/theme/room-knock-page-background -> Rooms",
+    "whereby-openapi.yml: tagged paths GET /recordings -> Recordings",
+    "whereby-openapi.yml: tagged paths GET /recordings/{recordingId} -> Recordings",
+    "whereby-openapi.yml: tagged paths DELETE /recordings/{recordingId} -> Recordings",
+    "whereby-openapi.yml: tagged paths GET /recordings/{recordingId}/access-link -> Recordings",
+    "whereby-openapi.yml: tagged paths POST /recordings/bulk-delete -> Recordings",
+    "whereby-openapi.yml: tagged paths GET /transcriptions -> Transcriptions",
+    "whereby-openapi.yml: tagged paths POST /transcriptions -> Transcriptions",
+    "whereby-openapi.yml: tagged paths GET /transcriptions/{transcriptionId} -> Transcriptions",
+    "whereby-openapi.yml: tagged paths DELETE /transcriptions/{transcriptionId} -> Transcriptions",
+    "whereby-openapi.yml: tagged paths GET /transcriptions/{transcriptionId}/access-link -> Transcriptions",
+    "whereby-openapi.yml: tagged paths POST /transcriptions/bulk-delete -> Transcriptions",
+    "whereby-openapi.yml: tagged paths GET /summaries -> Summaries",
+    "whereby-openapi.yml: tagged paths POST /summaries -> Summaries",
+    "whereby-openapi.yml: tagged paths GET /summaries/{summaryId} -> Summaries",
+    "whereby-openapi.yml: tagged paths DELETE /summaries/{summaryId} -> Summaries",
+    "whereby-openapi.yml: tagged paths GET /insights/rooms -> Insights",
+    "whereby-openapi.yml: tagged paths GET /insights/room-sessions -> Insights",
+    "whereby-openapi.yml: tagged paths GET /insights/participants -> Insights",
+    "whereby-openapi.yml: tagged paths GET /insights/participant -> Insights",
+    "whereby-openapi.yml: declared missing tag: Insights",
+    "whereby-openapi.yml: declared missing tag: Meetings",
+    "whereby-openapi.yml: declared missing tag: Recordings",
+    "whereby-openapi.yml: declared missing tag: Rooms",
+    "whereby-openapi.yml: declared missing tag: Summaries",
+    "whereby-openapi.yml: declared missing tag: Transcriptions",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "whereby-insights-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "whereby-meetings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "whereby-recordings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "whereby-rooms-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "whereby-summaries-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "whereby-transcriptions-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

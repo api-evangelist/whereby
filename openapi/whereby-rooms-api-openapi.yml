@@ -1,13 +1,11 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Whereby REST Insights Rooms API
+  title: Whereby REST Rooms API
   description: 'Whereby REST API for managing meetings, rooms, recordings, transcriptions,
 
     summaries and insights. Authenticated with a Bearer token issued from the
 
-    Whereby Embedded dashboard.
-
-    '
+    Whereby Embedded dashboard.'
   version: '1.0'
   contact:
     name: Whereby
