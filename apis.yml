@@ -83,8 +83,6 @@ apis:
     type: APIReference
   - url: https://docs.whereby.com/reference/insights
     type: APIReference
-  - url: graphql/whereby-graphql.md
-    type: GraphQL
 - aid: whereby:whereby-webhooks
   name: Whereby Webhooks
   description: >-
