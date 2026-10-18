@@ -1,0 +1,24 @@
+edges:
+- partner_name: Google Workspace (own)
+  partner: google-workspace
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://workspace.google.com/marketplace/app/whereby_for_google_calendar/480029666679
+  mirror_of: google-workspace/integrations/google-workspace-integration-edges.yml
+  apps:
+  - Whereby for Google Calendar™
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Google Workspace app
+generated: '2026-10-18'
+method: searched
+source:
+- google-workspace/integrations/google-workspace-integration-edges.yml
+checked:
+- google-workspace/integrations/google-workspace-integration-edges.yml
