@@ -46,6 +46,23 @@ edges:
     detected: '2026-10-20'
   detected_by: sweep-compliance-assurance.py
   first_seen: '2026-10-20'
+- partner_name: Miro (own)
+  partner: miro
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://miro.com/marketplace/whereby/
+  mirror_of: miro/integrations/miro-integration-edges.yml
+  apps:
+  - Whereby
+  listing_count: 1
+  detected: '2026-10-22'
+  detected_by: mirror-platform-listings.py
+  category: Miro app
 generated: '2026-10-18'
 method: searched
 source:
@@ -54,3 +71,4 @@ checked:
 - google-workspace/integrations/google-workspace-integration-edges.yml
 - https://cloudsecurityalliance.org/star/registry
 - https://eucoc.cloud/en/public-register/list-of-adherent-services
+- miro/integrations/miro-integration-edges.yml
